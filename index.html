@@ -1,0 +1,251 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Money Tracker</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="app">
+    <header class="header">
+      <div>
+        <h1>My Money Tracker</h1>
+        <p>Track your money, manage your future.</p>
+      </div>
+
+      <button id="theme-toggle" class="theme-btn" type="button">
+        🌙 Dark Mode
+      </button>
+    </header>
+
+    <!-- All-time summary -->
+    <section class="summary">
+      <div class="balance-card">
+        <p>Total Balance</p>
+        <h2 id="balance">₹0.00</h2>
+        <span>All-time income minus expenses</span>
+      </div>
+
+      <div class="summary-card income-card">
+        <p>Total Income</p>
+        <h2 id="income">₹0.00</h2>
+      </div>
+
+      <div class="summary-card expense-card">
+        <p>Total Expenses</p>
+        <h2 id="expense">₹0.00</h2>
+      </div>
+    </section>
+
+    <!-- Monthly dashboard -->
+    <section class="panel">
+      <div class="section-heading">
+        <div>
+          <h2>Monthly Dashboard</h2>
+          <p>Check your monthly money activity.</p>
+        </div>
+
+        <input type="month" id="month-picker" aria-label="Select month">
+      </div>
+
+      <div class="monthly-summary">
+        <div class="mini-card">
+          <p>Monthly Income</p>
+          <h3 id="monthly-income">₹0.00</h3>
+        </div>
+
+        <div class="mini-card">
+          <p>Monthly Expenses</p>
+          <h3 id="monthly-expense">₹0.00</h3>
+        </div>
+
+        <div class="mini-card">
+          <p>Monthly Savings</p>
+          <h3 id="monthly-savings">₹0.00</h3>
+        </div>
+      </div>
+    </section>
+
+    <!-- Expense chart -->
+    <section class="panel">
+      <h2>Expense Charts</h2>
+      <p class="section-description">
+        See where your money goes this month.
+      </p>
+
+      <div class="chart-container">
+        <canvas
+          id="expense-chart"
+          role="img"
+          aria-label="Monthly expenses by category"
+        ></canvas>
+      </div>
+
+      <div id="chart-legend" class="chart-legend"></div>
+      <p id="chart-message" class="empty-message"></p>
+    </section>
+
+    <!-- Budget and savings goals -->
+    <section class="panel">
+      <h2>Monthly Budget & Savings Goal</h2>
+      <p class="section-description">
+        Set targets for the selected month.
+      </p>
+
+      <form id="goals-form" class="goals-form">
+        <div class="form-group">
+          <label for="budget-input">Monthly Expense Budget (₹)</label>
+          <input
+            type="number"
+            id="budget-input"
+            min="0"
+            max="1000000000000"
+            step="0.01"
+            placeholder="e.g. 10000"
+            required
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="goal-input">Monthly Savings Goal (₹)</label>
+          <input
+            type="number"
+            id="goal-input"
+            min="0"
+            max="1000000000000"
+            step="0.01"
+            placeholder="e.g. 5000"
+            required
+          >
+        </div>
+
+        <button type="submit" class="primary-btn">
+          Save Monthly Goals
+        </button>
+      </form>
+
+      <div class="goal-progress">
+        <div class="progress-heading">
+          <span>Expense Budget Used</span>
+          <strong id="budget-percent">Not set</strong>
+        </div>
+
+        <div class="progress-track">
+          <div id="budget-progress" class="progress-fill budget-fill"></div>
+        </div>
+
+        <p id="budget-message" class="progress-message">
+          Set your monthly budget to start tracking.
+        </p>
+      </div>
+
+      <div class="goal-progress">
+        <div class="progress-heading">
+          <span>Savings Goal Progress</span>
+          <strong id="savings-percent">Not set</strong>
+        </div>
+
+        <div class="progress-track">
+          <div id="savings-progress" class="progress-fill savings-fill"></div>
+        </div>
+
+        <p id="savings-message" class="progress-message">
+          Set your savings goal to start tracking.
+        </p>
+      </div>
+    </section>
+
+    <!-- Add transaction -->
+    <section class="panel">
+      <h2>Add Transaction</h2>
+
+      <form id="transaction-form" class="transaction-form">
+        <div class="form-group">
+          <label for="type">Transaction Type</label>
+          <select id="type" required>
+            <option value="income">Income</option>
+            <option value="expense">Expense</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="description">Description</label>
+          <input
+            type="text"
+            id="description"
+            placeholder="e.g. Salary, Food"
+            maxlength="80"
+            required
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="amount">Amount (₹)</label>
+          <input
+            type="number"
+            id="amount"
+            min="0.01"
+            max="1000000000000"
+            step="0.01"
+            placeholder="Enter amount"
+            required
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="category">Category</label>
+          <select id="category" required>
+            <option value="Salary">Salary</option>
+            <option value="Freelance">Freelance</option>
+            <option value="Food">Food</option>
+            <option value="Travel">Travel</option>
+            <option value="Shopping">Shopping</option>
+            <option value="Bills">Bills</option>
+            <option value="Education">Education</option>
+            <option value="Health">Health</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="date">Date</label>
+          <input type="date" id="date" required>
+        </div>
+
+        <button type="submit" class="primary-btn">
+          + Add Transaction
+        </button>
+      </form>
+    </section>
+
+    <!-- Transaction history -->
+    <section class="panel">
+      <div class="section-heading">
+        <div>
+          <h2>Transactions</h2>
+          <p>History for the selected month.</p>
+        </div>
+
+        <select id="filter" aria-label="Filter transactions">
+          <option value="all">All</option>
+          <option value="income">Income</option>
+          <option value="expense">Expenses</option>
+        </select>
+      </div>
+
+      <div id="transaction-list">
+        <p class="empty-message">No transactions yet.</p>
+      </div>
+    </section>
+
+    <footer>
+      My Money Tracker · Your money, your control.
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
